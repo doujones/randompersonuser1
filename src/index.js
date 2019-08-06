@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import "./index.css"
 
 // destructer
 const Man = ({img, name, email,location, children}) => {
   const url = `https://randomuser.me/api/portraits/med/men/${img}.jpg`
   return(
-    <article>
+    <article className="hello">
       <img 
       src= {url}
       alt="boswell lookalike"
@@ -19,7 +20,7 @@ const Man = ({img, name, email,location, children}) => {
 }
 
 const Boswell = () => {
-  return <section> 
+  return <section className="hello-will"> 
   <Man img="65" name="rolf" location="rogaland"/> 
   <Man img="61" name="will" location="birmingham">
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium nemo aperiam quis id fugit vel libero similique numquam dolores dolorem!</p>
@@ -32,3 +33,4 @@ const Boswell = () => {
 
 ReactDOM.render(<Boswell></Boswell>,
 document.getElementById('root'))
+
