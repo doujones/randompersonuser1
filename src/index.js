@@ -1,36 +1,36 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom'
 import "./index.css"
 
-// destructer
-const Man = ({img, name, email,location, children}) => {
-  const url = `https://randomuser.me/api/portraits/med/men/${img}.jpg`
-  return(
-    <article className="hello">
-      <img 
-      src= {url}
-      alt="boswell lookalike"
-      />
-      <h3>{email}</h3>
-      <h3>{name}</h3>
-      <h3>{location}</h3>
-      {children}
-    </article>
-  )
+const initProfile = {
+  followers: null,
+  publicRepos: null
 }
 
-const Boswell = () => {
-  return <section className="hello-will"> 
-  <Man img="65" name="rolf" location="rogaland"/> 
-  <Man img="61" name="will" location="birmingham">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium nemo aperiam quis id fugit vel libero similique numquam dolores dolorem!</p>
-  
-  </Man> 
-  <Man img="35" name="james" location="dallas"/> 
-  </section> 
-  
+function App(){
+
+  const [profile, setProfile] = useState(initProfile);
+
+    async function getProfile(){
+      const response = await fetch('https://api.github.com/users/doujones')
+      const json = await response.json();
+
+      setProfile({
+        followers: json.followers,
+        publicRepos: json.public_repos
+      })
+    }
+      useEffect(() => {
+        getProfile();
+      }, [])
+    return(
+      <div className="App">
+      <header className="App-header">
+      <h2>Fetch Data</h2>
+      <h3>{`follower: ${profile.followers}, repos: ${profile.publicRepos}`}</h3>
+      </header>
+      </div>
+    )
 }
 
-ReactDOM.render(<Boswell></Boswell>,
-document.getElementById('root'))
-
+export default App
